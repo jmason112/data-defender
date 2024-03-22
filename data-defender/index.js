@@ -6,6 +6,7 @@ const hpp = require('hpp');
 const rateLimit = require('express-rate-limit');
 const forceHttps = require('./middleware/forceHttps');
 require('dotenv').config();
+const connectDB = require("./db")
 
 const app = express();
 
@@ -49,3 +50,5 @@ app.listen(PORT, () => {
 }).on('error', (error) => {
   console.error('Failed to start server:', error);
 });
+
+connectDB();
