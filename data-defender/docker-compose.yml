@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  app:
+    container_name: data_defender_app
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/data_defender
+      - JWT_SECRET=your_jwt_secret_here
+    depends_on:
+      - mongo
+    networks:
+      - data_defender_network
+
+  mongo:
+    container_name: data_defender_mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - data_defender_mongo_volume:/data/db
+    networks:
+      - data_defender_network
+
+volumes:
+  data_defender_mongo_volume:
+
+networks:
+  data_defender_network:
+    name: data_defender_network
